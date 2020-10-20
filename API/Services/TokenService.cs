@@ -20,9 +20,11 @@ namespace API.Services
         }
         public string CreateToken(AppUser user)
         {
+            const string claimTypeUnitId = "urn:unitid";
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.NameId, user.UserName)
+                new Claim(JwtRegisteredClaimNames.NameId, user.UserName),
+                new Claim(claimTypeUnitId, "720")
             };
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
             var tokenDescriptor = new SecurityTokenDescriptor
