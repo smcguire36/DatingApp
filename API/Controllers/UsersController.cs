@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers {
+    [Authorize]
     public class UsersController : BaseApiController {
         private readonly DataContext _context;
         public UsersController (DataContext context) {
@@ -16,7 +17,6 @@ namespace API.Controllers {
 
         // api/users
         [HttpGet]
-        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
             // Synchronous call to database
@@ -26,7 +26,6 @@ namespace API.Controllers {
         }
 
         // api/users/3
-        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<AppUser>> GetUser(int id)
         {
